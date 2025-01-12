@@ -77,3 +77,6 @@ class Program
         }
     }
 }
+
+//video:https://video.byui.edu/media/t/1_78d651c6
+//solution: https://github.com/byui-cse/cse210-ww-student-sample-solutions/blob/main/week01/Exercise2/Program.cs
