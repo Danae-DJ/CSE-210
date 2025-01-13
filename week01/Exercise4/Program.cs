@@ -76,3 +76,5 @@ class Program
         }
     }
 }
+
+// solution: https://github.com/byui-cse/cse210-ww-student-sample-solutions/blob/main/week01/Exercise4/Program.cs 
