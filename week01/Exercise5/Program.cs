@@ -57,6 +57,8 @@ class Program
     //5
     static void DisplayResult(string name, int square)
     {
-        Console.WriteLine($"{name}, the square of your number is {square}");
+        Console.WriteLine($"Hello {name}, the square of your number is {square}");
     }
 }
+
+//solution: https://github.com/byui-cse/cse210-ww-student-sample-solutions/blob/main/week01/Exercise5/Program.cs
