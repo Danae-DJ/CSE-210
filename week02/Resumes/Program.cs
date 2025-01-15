@@ -33,3 +33,6 @@ class Program
         myResume.DisplayResume();
     }
 }
+
+
+//solution: https://github.com/byui-cse/cse210-ww-student-sample-solutions/tree/main/week02/Resumes
