@@ -12,4 +12,3 @@ public class Entry
 
 
 
-//note: original video... https://video.byui.edu/media/t/1_vmeovorz 
