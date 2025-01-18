@@ -1,3 +1,4 @@
+//PromptGenerator.cs:
 public class PrompGenerator
 {
     public List<string> _prompts;
