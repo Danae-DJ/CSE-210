@@ -82,7 +82,7 @@ class Program
 
                 //Extra: Add Provide Statistics
                 case "6":
-                    Console.WriteLine("6. Display journal statistics.");
+                    theJournal.GetStatistics();
                     break;
 
                 //Any option
