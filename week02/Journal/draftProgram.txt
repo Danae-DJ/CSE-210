@@ -1,0 +1,193 @@
+basic explication:
+
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Journal theJournal = new Journal();  // Create an instance of the Journal class
+        PromptGenerator promptGenerator = new PromptGenerator();  // Create an instance of the PromptGenerator class
+        bool running = true;  // Variable to control the loop (running = true means keep running)
+
+        while (running)  // This loop will keep running until the user chooses to quit
+        {
+            // Show the menu options to the user
+            Console.WriteLine("Please select one of the following options:");
+            Console.WriteLine("1. Write a new entry");
+            Console.WriteLine("2. Display the journal");
+            Console.WriteLine("3. Save the journal to a file");
+            Console.WriteLine("4. Load the journal from a file");
+            Console.WriteLine("5. Quit");
+            Console.Write("What would you like to do? ");
+
+            string choice = Console.ReadLine();  // Get the user's choice from the console
+
+            switch (choice)  // Use a switch statement to choose which action to perform
+            {
+                case "1":  // Case for option 1: Write a new entry
+                    string prompt = promptGenerator.GetRandomPrompt();  // Get a random prompt
+                    Console.WriteLine($"Prompt: {prompt}");  // Display the prompt to the user
+                    Console.Write("Your response: ");  // Ask the user for their response
+                    string response = Console.ReadLine();  // Get the user's response
+
+                    // Create a new Entry object with the current date, prompt, and user's response
+                    Entry newEntry = new Entry
+                    {
+                        _date = DateTime.Now.ToShortDateString(),  // Use the current date
+                        _promptText = prompt,  // Set the prompt
+                        _entryText = response  // Set the user's response
+                    };
+                    theJournal.AddEntry(newEntry);  // Add the new entry to the journal
+                    break;
+
+                case "2":  // Case for option 2: Display the journal
+                    theJournal.Display();  // Call the Display method from the Journal class to show all entries
+                    break;
+
+                case "3":  // Case for option 3: Save the journal to a file
+                    Console.Write("Enter the filename to save to: ");  // Ask the user for the filename
+                    string saveFileName = Console.ReadLine();  // Get the filename from the user
+                    theJournal.SaveToFile(saveFileName);  // Save the journal entries to the file
+                    break;
+
+                case "4":  // Case for option 4: Load the journal from a file
+                    Console.Write("Enter the filename to load from: ");  // Ask the user for the filename
+                    string loadFileName = Console.ReadLine();  // Get the filename from the user
+                    theJournal.LoadFromFile(loadFileName);  // Load the journal entries from the file
+                    break;
+
+                case "5":  // Case for option 5: Quit the program
+                    running = false;  // Set the running flag to false, which will exit the loop and end the program
+                    break;
+
+                default:  // Default case if the user enters an invalid option
+                    Console.WriteLine("Invalid option. Please try again.");
+                    break;
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+detail explication:
+static void Main(string[] args)
+{
+    Journal theJournal = new Journal();  // Create an instance of the Journal class
+    PromptGenerator promptGenerator = new PromptGenerator();  // Create an instance of the PromptGenerator class
+    bool running = true;  // Variable to control the loop (running = true means keep running)
+}
+
+///1. The Main Method & Program Initialization
+csharp
+Copiar código
+static void Main(string[] args)
+{
+    Journal theJournal = new Journal();  // Create an instance of the Journal class
+    PromptGenerator promptGenerator = new PromptGenerator();  // Create an instance of the PromptGenerator class
+    bool running = true;  // Variable to control the loop (running = true means keep running)
+}
+Journal theJournal = new Journal();
+You create a new instance of the Journal class. This object will store the user's journal entries.
+
+PromptGenerator promptGenerator = new PromptGenerator();
+This creates a new instance of the PromptGenerator class, which will provide the prompts for the user.
+
+bool running = true;
+A boolean variable running is initialized to true. This variable will control the while loop that keeps the program running until the user selects "Quit".
+
+2. The while (running) Loop
+csharp
+Copiar código
+while (running)  // This loop will keep running until the user chooses to quit
+{
+    // Show the menu options to the user
+    Console.WriteLine("Please select one of the following options:");
+    Console.WriteLine("1. Write a new entry");
+    Console.WriteLine("2. Display the journal");
+    Console.WriteLine("3. Save the journal to a file");
+    Console.WriteLine("4. Load the journal from a file");
+    Console.WriteLine("5. Quit");
+    Console.Write("What would you like to do? ");
+}
+while (running)
+The loop will continue to run as long as running is true. Each iteration of the loop presents the user with a menu of choices.
+
+Menu:
+Inside the loop, we use Console.WriteLine() to print the menu options to the console. This lets the user know what they can do next.
+
+Console.ReadLine()
+Console.ReadLine() waits for the user to input a response and then returns it as a string, which is stored in the choice variable.
+
+3. The switch (choice) Statement
+csharp
+Copiar código
+switch (choice)  // Use a switch statement to choose which action to perform
+{
+    case "1":  // Case for option 1: Write a new entry
+        // Code for option 1 here...
+        break;
+
+    case "2":  // Case for option 2: Display the journal
+        // Code for option 2 here...
+        break;
+
+    case "3":  // Case for option 3: Save the journal to a file
+        // Code for option 3 here...
+        break;
+
+    case "4":  // Case for option 4: Load the journal from a file
+        // Code for option 4 here...
+        break;
+
+    case "5":  // Case for option 5: Quit the program
+        // Code for quitting here...
+        break;
+
+    default:  // Default case if the user enters an invalid option
+        Console.WriteLine("Invalid option. Please try again.");
+        break;
+}
+The switch statement is used to handle the different options the user can choose. It compares the choice variable with each case (like "1", "2", etc.), and executes the corresponding block of code for that option.
+
+case "1" (Write a new entry):
+
+Get a prompt: promptGenerator.GetRandomPrompt() randomly selects a prompt from the list in PromptGenerator.
+Get a response: The user is prompted for a response, which is then stored in the response variable.
+Create a new Entry: A new Entry object is created with the current date, prompt, and response.
+Add to journal: The new entry is added to the journal by calling theJournal.AddEntry(newEntry).
+case "2" (Display the journal):
+
+Calls theJournal.Display() to display all the entries in the journal.
+case "3" (Save the journal):
+
+The program asks the user for a filename and then saves the journal to that file using theJournal.SaveToFile(saveFileName).
+case "4" (Load the journal):
+
+The program asks the user for a filename and then loads the journal entries from that file using theJournal.LoadFromFile(loadFileName).
+case "5" (Quit):
+
+Sets running to false, which causes the loop to terminate, and the program will quit.
+default (Invalid input):
+
+If the user enters anything other than "1", "2", "3", "4", or "5", the default case will execute, and the program will prompt the user to enter a valid choice.
+4. Ending the Program
+csharp
+Copiar código
+running = false;  // Set the running flag to false, which will exit the loop and end the program
+When the user selects "Quit" (option 5), the running flag is set to false, which will cause the while (running) loop to terminate, effectively ending the program.
+
+Conclusion:
+This main program loop coordinates the interaction between the user and the journal. It uses:
+
+A menu for user input,
+A switch statement for handling different choices,
+Methods from the Journal and PromptGenerator classes to handle entries and prompts.
+
+note aditionals examples: https://stackoverflow.com/questions/72718456/using-a-switch-case-statement-with-a-list-in-c-sharp
+https://stackoverflow.com/questions/43330497/switch-and-case-with-lists-and-arrays 
