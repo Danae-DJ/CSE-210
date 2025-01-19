@@ -1,4 +1,4 @@
-//Program.cs:
+//step6: assemble the Program.cs:
 using System;
 
 class Program
@@ -6,38 +6,77 @@ class Program
     static void Main(string[] args)
     {
         Journal theJournal = new Journal();
-        Entry anEntry = new Entry();
-        anEntry.Display();
-        int newNumber = 0;
+        PrompGenerator prompGenerator = new PrompGenerator();
+        bool running = true;
+
         Console.WriteLine("Hello World! This is the Journal Project.");
-        //step1: what I want to do...
-        Console.WriteLine("Please select one of the following choice:");
-        Console.WriteLine("1. Write a new journal entry.");
-        Console.WriteLine("2. Display the journal.");
-        Console.WriteLine("3. Load entries from a file");
-        Console.WriteLine("4. Save entries to a file");
-        Console.WriteLine("5. Quit");
-        //step2: create classes to use: journal, entry, prompt.
-        
-        while (newNumber >= 1 && newNumber <=5 )
+
+        while (running)
         {
+            /*Entry anEntry = new Entry();
+            anEntry.Display();
+            int newNumber = 0;*/
+            
+            //step1: what I want to do...
+            Console.WriteLine("Please select one of the following choice:");
+            Console.WriteLine("1. Write a new journal entry.");
+            Console.WriteLine("2. Display the journal.");
+            Console.WriteLine("3. Load entries from a file");
+            Console.WriteLine("4. Save entries to a file");
+            Console.WriteLine("5. Quit");
             Console.Write("What would you like to do? (1-5): ");
+            //step2: create classes to use: journal, entry, prompt.
+
+        
             string userResponse = Console.ReadLine();
-            newNumber = int.Parse(userResponse);
             //return newNumber;
-            if (newNumber == 1)
-            {}
-            else if (newNumber == 2)
-            {}
-            else if (newNumber == 3)
-            {}
-            else if (newNumber == 4)
-            {}
-            else if (newNumber == 5)
-            {}
-            else 
+            switch (userResponse)
             {
-                Console.Write("Enter a valite number: ");
+                //Write
+                case "1":
+                    string prompt = prompGenerator.GetRandomPrompt();
+                    Console.WriteLine($"Prompt: {prompt}");
+                    Console.Write("Your response: ");
+                    string response = Console.ReadLine();
+
+                    Entry newEntry = new Entry
+                    {
+                        _date = DateTime.Now.ToShortDateString(),
+                        _promptText = prompt,
+                        _entryText = response
+                    };
+                    theJournal.AddEntry(newEntry);
+                    break;
+
+                //Display
+                case "2":
+                    theJournal.Display();
+                    break;
+
+                //Load
+                case "3":
+                    Console.Write("Enter the filename to load from: ");
+                    string loadFileName = Console.ReadLine();
+                    theJournal.LoadFromFile(loadFileName);
+                    break;
+
+                //Save
+                case "4":
+                    Console.Write("Enter the filename to save to: ");
+                    string saveFileName = Console.ReadLine();
+                    theJournal.SaveToFile(saveFileName);
+                    break;
+
+                //Quit
+                case "5":
+                    running = false;
+                    break;
+
+                //Any option
+                default:
+                    Console.WriteLine("Invalid option. Please try again.");
+                    break;
+
             }
         }
 

@@ -17,7 +17,7 @@ public class Journal
         }
     }
 
-    public void SavToFile(string fileName)
+    public void SaveToFile(string fileName)
     {
         using (StreamWriter outputFile = new StreamWriter(fileName))
         {
