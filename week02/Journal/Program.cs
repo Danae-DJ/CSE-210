@@ -6,7 +6,7 @@ class Program
     static void Main(string[] args)
     {
         Journal theJournal = new Journal();
-        PrompGenerator prompGenerator = new PrompGenerator();
+        PromptGenerator promptGenerator = new PromptGenerator();
         bool running = true;
 
         Console.WriteLine("Hello World! This is the Journal Project.");
@@ -33,7 +33,7 @@ class Program
             {
                 //Write
                 case "1":
-                    string prompt = prompGenerator.GetRandomPrompt();
+                    string prompt = promptGenerator.GetRandomPrompt();
                     Console.WriteLine($"Prompt: {prompt}");
                     Console.Write("Your response: ");
                     string response = Console.ReadLine();

@@ -1,6 +1,6 @@
 //step5: PromptGenerator.cs: the cuestions to the journal
 using System;
-public class PrompGenerator
+public class PromptGenerator
 {
     public List<string> _prompts = new List<string>
     {
