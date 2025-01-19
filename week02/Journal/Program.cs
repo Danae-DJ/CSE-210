@@ -23,6 +23,7 @@ class Program
             Console.WriteLine("3. Load entries from a file");
             Console.WriteLine("4. Save entries to a file");
             Console.WriteLine("5. Quit");
+            Console.WriteLine("6. Display journal statistics.");
             Console.Write("What would you like to do? (1-5): ");
             //step2: create classes to use: journal, entry, prompt.
 
