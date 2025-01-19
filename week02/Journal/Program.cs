@@ -37,12 +37,20 @@ class Program
                     Console.WriteLine($"Prompt: {prompt}");
                     Console.Write("Your response: ");
                     string response = Console.ReadLine();
+                    //Extra
+                    Console.Write("What is your mood (e.g., Happy, Sad, Excited)? ");
+                    string mood = Console.ReadLine();
+                    //extra
+                    Console.Write("Add tags (separate by commas, e.g., Work, Family): ");
+                    string tags = Console.ReadLine();
 
                     Entry newEntry = new Entry
                     {
                         _date = DateTime.Now.ToShortDateString(),
                         _promptText = prompt,
-                        _entryText = response
+                        _entryText = response,
+                        _mood = mood, //extra
+                        _tags = tags //extra
                     };
                     theJournal.AddEntry(newEntry);
                     break;
@@ -69,6 +77,11 @@ class Program
                 //Quit
                 case "5":
                     running = false;
+                    break;
+
+                //Extra: Add Provide Statistics
+                case "6":
+                    Console.WriteLine("6. Display journal statistics.");
                     break;
 
                 //Any option
