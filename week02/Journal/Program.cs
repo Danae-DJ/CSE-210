@@ -14,8 +14,7 @@ class Program
         while (running)
         {
             /*Entry anEntry = new Entry();
-            anEntry.Display();
-            int newNumber = 0;*/
+            anEntry.Display();*/
             
             //step1: what I want to do...
             Console.WriteLine("Please select one of the following choice:");
