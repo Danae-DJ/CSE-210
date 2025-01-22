@@ -1,0 +1,187 @@
+Strengths:
+Encapsulation:
+
+The _top and _bottom fields are marked as private, encapsulating the internal state of the Fractions class. This prevents direct access and maintains control over how these values are modified.
+Constructor Overloading:
+
+You've implemented three constructors:
+A default constructor (Fractions()).
+A constructor that takes a whole number (Fractions(int wholeNumber)).
+A constructor that takes a numerator and denominator (Fractions(int top, int bottom)).
+This makes the class flexible and easy to use for various scenarios.
+Method Implementation:
+
+GetFractionsString: Provides a string representation of the fraction.
+GetDecimalValue: Calculates the decimal equivalent of the fraction.
+Test Cases in Program.cs:
+
+You created multiple fraction objects using the different constructors and demonstrated the output with clear usage of the methods.
+Suggestions for Improvement:
+Validation for Zero Denominator:
+
+You should validate the _bottom field in the constructor to ensure the denominator is not zero, as dividing by zero is undefined.
+Example:
+csharp
+Copiar
+Editar
+public Fractions(int top, int bottom)
+{
+    if (bottom == 0)
+    {
+        throw new ArgumentException("Denominator cannot be zero.");
+    }
+    _top = top;
+    _bottom = bottom;
+}
+Simplify Fractions:
+
+Add functionality to reduce fractions to their simplest form. For example, 6/8 should simplify to 3/4.
+
+Example:
+
+csharp
+Copiar
+Editar
+private void Simplify()
+{
+    int gcd = GCD(_top, _bottom);
+    _top /= gcd;
+    _bottom /= gcd;
+}
+
+private int GCD(int a, int b)
+{
+    return b == 0 ? a : GCD(b, a % b);
+}
+Call Simplify() in the constructor or after setting the values.
+
+Improved String Representation:
+
+You can enhance GetFractionsString to handle cases where the fraction is a whole number (e.g., 4/1 should display as 4).
+csharp
+Copiar
+Editar
+public string GetFractionsString()
+{
+    if (_bottom == 1)
+    {
+        return $"{_top}";
+    }
+    return $"{_top}/{_bottom}";
+}
+Equality and Comparison:
+
+Add methods to compare two fractions or check for equality.
+Example:
+
+csharp
+Copiar
+Editar
+public bool Equals(Fractions other)
+{
+    return _top * other._bottom == _bottom * other._top;
+}
+Example with Improvements:
+Fractions.cs
+csharp
+Copiar
+Editar
+using System;
+
+public class Fractions
+{
+    private int _top;
+    private int _bottom;
+
+    public Fractions()
+    {
+        _top = 1;
+        _bottom = 1;
+    }
+
+    public Fractions(int wholeNumber)
+    {
+        _top = wholeNumber;
+        _bottom = 1;
+    }
+
+    public Fractions(int top, int bottom)
+    {
+        if (bottom == 0)
+        {
+            throw new ArgumentException("Denominator cannot be zero.");
+        }
+        _top = top;
+        _bottom = bottom;
+        Simplify();
+    }
+
+    public string GetFractionsString()
+    {
+        if (_bottom == 1)
+        {
+            return $"{_top}";
+        }
+        return $"{_top}/{_bottom}";
+    }
+
+    public double GetDecimalValue()
+    {
+        return (double)_top / (double)_bottom;
+    }
+
+    private void Simplify()
+    {
+        int gcd = GCD(_top, _bottom);
+        _top /= gcd;
+        _bottom /= gcd;
+    }
+
+    private int GCD(int a, int b)
+    {
+        return b == 0 ? a : GCD(b, a % b);
+    }
+}
+Program.cs
+csharp
+Copiar
+Editar
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Hello World! This is the Fractions Project.");
+
+        Fractions f1 = new Fractions();
+        Console.WriteLine(f1.GetFractionsString());
+        Console.WriteLine(f1.GetDecimalValue());
+
+        Fractions f2 = new Fractions(5);
+        Console.WriteLine(f2.GetFractionsString());
+        Console.WriteLine(f2.GetDecimalValue());
+
+        Fractions f3 = new Fractions(6, 8);
+        Console.WriteLine(f3.GetFractionsString());
+        Console.WriteLine(f3.GetDecimalValue());
+
+        Fractions f4 = new Fractions(1, 3);
+        Console.WriteLine(f4.GetFractionsString());
+        Console.WriteLine(f4.GetDecimalValue());
+    }
+}
+Sample Output:
+csharp
+Copiar
+Editar
+Hello World! This is the Fractions Project.
+1
+1
+5
+5
+3/4
+0.75
+1/3
+0.3333333333333333
+Your program is already great, but these suggestions and enhancements could take it to the next level! Let me know if you need help implementing any of these changes. 😊
