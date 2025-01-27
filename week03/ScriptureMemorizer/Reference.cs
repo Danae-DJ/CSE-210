@@ -21,6 +21,25 @@ public class Reference
         _endVerse = endVerse;
     }
 
+    //Extra: reference to load new scriptures
+    public static Reference Parse(string referenceText)
+    {
+        string[] parts = referenceText.Split(" ");
+        string book = parts[0];
+        string[] chapterAndVerses = parts[1].Split(":");
+        int chapter = int.Parse(chapterAndVerses[0]);
+        
+        if (chapterAndVerses[1].Contains("-"))
+        {
+            string[] verses = chapterAndVerses[1].Split("-");
+            return new Reference(book, chapter, int.Parse(verses[0]), int.Parse(verses[1]));
+        }
+        else
+        {
+            return new Reference(book, chapter, int.Parse(chapterAndVerses[1]));
+        }
+    }
+
     public string GetDisplayText()
     {
         if (_endVerse == -1)
@@ -28,4 +47,6 @@ public class Reference
         else
             return $"{_book} {_chapter}:{_verse}-{_endVerse}";
     }
+
+
 }

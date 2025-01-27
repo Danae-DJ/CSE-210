@@ -1,16 +1,16 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
 
 class Program
 {
     static void Main(string[] args)
     {
+        Console.WriteLine("Hello World! This is the ScriptureMemorizer Project.");
+
         string filePath = "scriptures.txt"; // File to store scriptures
         EnsureFileExists(filePath); // Ensure file exists
 
         while (true)
-        {   // Ensure file exists
+        {
             Console.Clear();
             Console.WriteLine("Welcome to the Scripture Memorizer!");
             Console.WriteLine("1. Memorize a random scripture");
