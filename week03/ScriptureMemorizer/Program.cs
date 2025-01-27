@@ -10,13 +10,13 @@ class Program
         EnsureFileExists(filePath); // Ensure file exists
 
         while (true)
-        {   // Ensure file exists
+        {   // Extra: Ensure file exists
             Console.Clear();
-            Console.WriteLine("Welcome to the Scripture Memorizer!");
-            Console.WriteLine("1. Memorize a random scripture");
-            Console.WriteLine("2. Add a new scripture");
-            Console.WriteLine("3. View list of scriptures");
-            Console.WriteLine("4. Select a scripture to memorize");
+            Console.WriteLine("Welcome to the Scripture Memorizer!"); 
+            Console.WriteLine("1. Memorize a random scripture"); 
+            Console.WriteLine("2. Add a new scripture"); //
+            Console.WriteLine("3. View list of scriptures"); //
+            Console.WriteLine("4. Select a scripture to memorize"); //
             Console.WriteLine("5. Quit");
             Console.Write("Choose an option: ");
 

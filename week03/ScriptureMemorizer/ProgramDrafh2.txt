@@ -1,0 +1,738 @@
+Instructions, examples, etc:
+
+Step 1: Define the Classes and Responsibilities
+We need the following classes:
+
+Scripture: Handles storing the reference and text of the scripture, splitting it into words, hiding random words, and checking if the scripture is fully hidden.
+Reference: Handles the book, chapter, and verse information.
+Word: Represents a single word, its text, and whether it is hidden.
+
+
+
+Step 2: Create the Word Class
+Responsibilities:
+Store the text of the word.
+Keep track of whether the word is hidden.
+Provide methods to show, hide, and display the word.
+Code:
+csharp
+Copiar
+Editar
+public class Word
+{
+    private string _text;       // The actual word
+    private bool _isHidden;     // Tracks if the word is hidden
+
+    // Constructor to initialize the word
+    public Word(string text)
+    {
+        _text = text;
+        _isHidden = false; // Words are visible by default
+    }
+
+    // Method to hide the word
+    public void Hide()
+    {
+        _isHidden = true;
+    }
+
+    // Method to show the word
+    public void Show()
+    {
+        _isHidden = false;
+    }
+
+    // Method to get the display text of the word
+    public string GetDisplayText()
+    {
+        return _isHidden ? new string('_', _text.Length) : _text;
+    }
+
+    // Method to check if the word is hidden
+    public bool IsHidden()
+    {
+        return _isHidden;
+    }
+}
+
+
+
+
+Step 3: Create the Reference Class
+Responsibilities:
+Store the book, chapter, and verse(s).
+Format the reference as a string.
+Code:
+csharp
+Copiar
+Editar
+public class Reference
+{
+    private string _book;       // Book name (e.g., "John")
+    private int _chapter;       // Chapter number
+    private int _verse;         // Start verse
+    private int _endVerse;      // End verse (optional)
+
+    // Constructor for a single verse
+    public Reference(string book, int chapter, int verse)
+    {
+        _book = book;
+        _chapter = chapter;
+        _verse = verse;
+        _endVerse = -1; // No end verse
+    }
+
+    // Constructor for a verse range
+    public Reference(string book, int chapter, int startVerse, int endVerse)
+    {
+        _book = book;
+        _chapter = chapter;
+        _verse = startVerse;
+        _endVerse = endVerse;
+    }
+
+    // Method to get the reference as a formatted string
+    public string GetDisplayText()
+    {
+        if (_endVerse == -1)
+            return $"{_book} {_chapter}:{_verse}";
+        else
+            return $"{_book} {_chapter}:{_verse}-{_endVerse}";
+    }
+}
+
+
+
+
+Step 4: Create the Scripture Class
+Responsibilities:
+Store the reference and list of words.
+Hide random words.
+Check if all words are hidden.
+Format and display the scripture.
+Code:
+csharp
+Copiar
+Editar
+using System;
+using System.Collections.Generic;
+
+public class Scripture
+{
+    private Reference _reference; // Scripture reference
+    private List<Word> _words;    // List of words in the scripture
+
+    // Constructor to initialize scripture with reference and text
+    public Scripture(Reference reference, string text)
+    {
+        _reference = reference;
+
+        // Split the text into words and create Word objects
+        _words = new List<Word>();
+        string[] wordsArray = text.Split(' ');
+        foreach (string word in wordsArray)
+        {
+            _words.Add(new Word(word));
+        }
+    }
+
+    // Method to hide random words
+    public void HideRandomWords(int numberToHide)
+    {
+        Random random = new Random();
+        int count = 0;
+
+        while (count < numberToHide)
+        {
+            int index = random.Next(_words.Count); // Random index
+            if (!_words[index].IsHidden())        // Hide only if not already hidden
+            {
+                _words[index].Hide();
+                count++;
+            }
+        }
+    }
+
+    // Method to check if all words are hidden
+    public bool IsCompletelyHidden()
+    {
+        foreach (Word word in _words)
+        {
+            if (!word.IsHidden()) return false;
+        }
+        return true;
+    }
+
+    // Method to get the scripture display text
+    public string GetDisplayText()
+    {
+        string result = $"{_reference.GetDisplayText()}\n";
+        foreach (Word word in _words)
+        {
+            result += word.GetDisplayText() + " ";
+        }
+        return result.Trim();
+    }
+}
+
+
+
+
+Step 5: Create the Program Class
+Responsibilities:
+Manage user interaction.
+Display the scripture and update it after hiding words.
+Code:
+csharp
+Copiar
+Editar
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Create a reference and scripture
+        Reference reference = new Reference("John", 3, 16);
+        Scripture scripture = new Scripture(reference, "For God so loved the world that he gave his only begotten Son.");
+
+        // Main loop
+        while (true)
+        {
+            Console.Clear(); // Clear the console
+            Console.WriteLine(scripture.GetDisplayText()); // Display scripture
+
+            // Check if all words are hidden
+            if (scripture.IsCompletelyHidden())
+            {
+                Console.WriteLine("\nAll words are hidden. Program ending.");
+                break;
+            }
+
+            // Prompt the user
+            Console.WriteLine("\nPress Enter to hide words or type 'quit' to exit.");
+            string input = Console.ReadLine();
+
+            if (input.ToLower() == "quit") break;
+
+            // Hide random words
+            scripture.HideRandomWords(3);
+        }
+    }
+}
+How It Works
+Initialization:
+The Reference stores the scripture reference.
+The Scripture class splits the text into individual Word objects.
+Display:
+The scripture is displayed with all words initially visible.
+User Interaction:
+The user presses Enter to hide random words or types quit to exit.
+Hiding Words:
+Random words are hidden (replaced by underscores), and the scripture is displayed again.
+Ending:
+The program ends when all words are hidden or the user types quit.
+Stretch Challenges
+Allow users to load scriptures from a file.
+Randomly choose scriptures from a list.
+Improve hiding logic to ensure unique words are hidden.
+Would you like to explore these? 😊
+
+
+
+
+
+
+
+Dijiste:
+I would like add to code those: Allow users to load scriptures from a file, and Randomly choose scriptures from a list.
+please
+ChatGPT dijo:
+ChatGPT
+To allow users to load scriptures from a file and randomly choose scriptures from a list, we'll modify the program step-by-step. Here's how you can implement these features:
+
+
+
+Step 1: Load Scriptures from a File
+We’ll create a method to read scriptures from a file. Each line in the file will represent a scripture in the format:
+Reference - Scripture Text
+For example:
+
+sql
+Copiar
+Editar
+John 3:16 - For God so loved the world that He gave His only begotten Son.
+Proverbs 3:5-6 - Trust in the Lord with all your heart and lean not on your own understanding.
+
+
+
+
+Step 2: Store Scriptures in a List
+We’ll store the loaded scriptures in a list of Scripture objects.
+
+
+
+
+Step 3: Randomly Choose a Scripture
+We’ll randomly select a scripture from the list when the program starts.
+
+Here’s the updated code:
+
+ScriptureLoader.cs (New Class to Load Scriptures)
+csharp
+Copiar
+Editar
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+public class ScriptureLoader
+{
+    public static List<Scripture> LoadFromFile(string filePath)
+    {
+        var scriptures = new List<Scripture>();
+
+        if (File.Exists(filePath))
+        {
+            string[] lines = File.ReadAllLines(filePath);
+
+            foreach (string line in lines)
+            {
+                string[] parts = line.Split(" - ");
+                if (parts.Length == 2)
+                {
+                    Reference reference = Reference.Parse(parts[0]); // Parse the reference
+                    Scripture scripture = new Scripture(reference, parts[1]); // Create Scripture object
+                    scriptures.Add(scripture);
+                }
+            }
+        }
+        else
+        {
+            Console.WriteLine("File not found: " + filePath);
+        }
+
+        return scriptures;
+    }
+}
+
+
+
+
+
+Reference.cs (Add a Parse Method to Handle String Input)
+csharp
+Copiar
+Editar
+public class Reference
+{
+    private string _book;
+    private int _chapter;
+    private int _verse;
+    private int _endVerse;
+
+    public Reference(string book, int chapter, int verse)
+    {
+        _book = book;
+        _chapter = chapter;
+        _verse = verse;
+    }
+
+    public Reference(string book, int chapter, int verse, int endVerse)
+    {
+        _book = book;
+        _chapter = chapter;
+        _verse = verse;
+        _endVerse = endVerse;
+    }
+
+    public static Reference Parse(string referenceText)
+    {
+        string[] parts = referenceText.Split(" ");
+        string book = parts[0];
+        string[] chapterAndVerses = parts[1].Split(":");
+        int chapter = int.Parse(chapterAndVerses[0]);
+        
+        if (chapterAndVerses[1].Contains("-"))
+        {
+            string[] verses = chapterAndVerses[1].Split("-");
+            return new Reference(book, chapter, int.Parse(verses[0]), int.Parse(verses[1]));
+        }
+        else
+        {
+            return new Reference(book, chapter, int.Parse(chapterAndVerses[1]));
+        }
+    }
+
+    public string GetDisplayText()
+    {
+        return _endVerse > 0 
+            ? $"{_book} {_chapter}:{_verse}-{_endVerse}" 
+            : $"{_book} {_chapter}:{_verse}";
+    }
+}
+
+
+
+
+
+
+Program.cs (Main Logic Update)
+csharp
+Copiar
+Editar
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Load scriptures from file
+        string filePath = "scriptures.txt"; // Ensure this file exists in the same directory as your executable
+        List<Scripture> scriptures = ScriptureLoader.LoadFromFile(filePath);
+
+        if (scriptures.Count == 0)
+        {
+            Console.WriteLine("No scriptures found. Exiting...");
+            return;
+        }
+
+        // Randomly select a scripture
+        Random random = new Random();
+        Scripture selectedScripture = scriptures[random.Next(scriptures.Count)];
+
+        Console.WriteLine("Welcome to the Scripture Memorizer!");
+        Console.WriteLine();
+
+        // Main scripture memorization loop
+        while (!selectedScripture.IsCompletelyHidden())
+        {
+            Console.Clear();
+            Console.WriteLine(selectedScripture.GetDisplayText());
+            Console.WriteLine();
+            Console.WriteLine("Press Enter to hide words or type 'quit' to exit.");
+            string input = Console.ReadLine();
+
+            if (input.Trim().ToLower() == "quit")
+            {
+                break;
+            }
+
+            selectedScripture.HideRandomWords(3);
+        }
+
+        Console.WriteLine("All words are hidden. Great job!");
+    }
+}
+
+
+
+
+How It Works:
+Load Scriptures from a File
+
+The ScriptureLoader reads scriptures from a file and splits each line into a reference and text.
+It creates Scripture objects and adds them to a list.
+Randomly Select a Scripture
+
+A Random object is used to pick a random scripture from the list.
+Scripture Memorization
+
+The program works as before, displaying the scripture and hiding words until all words are hidden or the user types quit.
+Example File: scriptures.txt
+txt
+Copiar
+Editar
+John 3:16 - For God so loved the world that He gave His only begotten Son.
+Proverbs 3:5-6 - Trust in the Lord with all your heart and lean not on your own understanding.
+Psalm 23:1-2 - The Lord is my shepherd; I shall not want. He maketh me to lie down in green pastures.
+Output Example:
+Initial Display:
+bash
+Copiar
+Editar
+Welcome to the Scripture Memorizer!
+
+John 3:16 - For God so loved the world that He gave His only begotten Son.
+
+Press Enter to hide words or type 'quit' to exit.
+After a Few Hides:
+bash
+Copiar
+Editar
+John 3:16 - For God so ______ the world that He _____ His only begotten ____.
+
+Press Enter to hide words or type 'quit' to exit.
+Final Display:
+markdown
+Copiar
+Editar
+John 3:16 - ___ ___ ______ ___ _____ ____ __ ____ _______ ____.
+
+All words are hidden. Great job!
+This implementation fulfills the requirements for loading scriptures from a file and randomly selecting them for practice.
+
+
+
+
+
+
+
+Dijiste:
+thanks,I'm impressed; So this code will read the list of writes, and select one at random? Would it be possible to add the instruction to add writes to the file, and then see the list and select one from the list?
+ChatGPT dijo:
+ChatGPT
+Yes, it is absolutely possible to add functionality for:
+
+Adding new scriptures to the file: Users can input a new scripture and save it into the file.
+Viewing the list of scriptures: Display all scriptures in the file.
+Selecting a specific scripture from the list: Allow the user to choose one instead of picking it randomly.
+Here’s how you can update the program to include these features:
+
+Updated Program.cs
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        string filePath = "scriptures.txt"; // File to store scriptures
+        EnsureFileExists(filePath); // Ensure file exists
+
+        while (true)
+        {   // Extra: Ensure file exists
+            Console.Clear();
+            Console.WriteLine("Welcome to the Scripture Memorizer!"); 
+            Console.WriteLine("1. Memorize a random scripture"); 
+            Console.WriteLine("2. Add a new scripture"); //
+            Console.WriteLine("3. View list of scriptures"); //
+            Console.WriteLine("4. Select a scripture to memorize"); //
+            Console.WriteLine("5. Quit");
+            Console.Write("Choose an option: ");
+
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    MemorizeRandomScripture(filePath);
+                    break;
+                case "2":
+                    AddNewScripture(filePath);
+                    break;
+                case "3":
+                    ViewScriptures(filePath);
+                    break;
+                case "4":
+                    SelectScripture(filePath);
+                    break;
+                case "5":
+                    Console.WriteLine("Goodbye!");
+                    return;
+                default:
+                    Console.WriteLine("Invalid choice. Press Enter to continue...");
+                    Console.ReadLine();
+                    break;
+            }
+        }
+    }
+
+    static void EnsureFileExists(string filePath)
+    {
+        if (!File.Exists(filePath))
+        {
+            File.Create(filePath).Close();
+        }
+    }
+
+    static void MemorizeRandomScripture(string filePath)
+    {
+        List<Scripture> scriptures = ScriptureLoader.LoadFromFile(filePath);
+
+        if (scriptures.Count == 0)
+        {
+            Console.WriteLine("No scriptures available. Please add some scriptures first.");
+            Console.ReadLine();
+            return;
+        }
+
+        Random random = new Random();
+        Scripture selectedScripture = scriptures[random.Next(scriptures.Count)];
+        MemorizeScripture(selectedScripture);
+    }
+
+    static void AddNewScripture(string filePath)
+    {
+        Console.Clear();
+        Console.WriteLine("Add a New Scripture");
+        Console.Write("Enter the reference (e.g., John 3:16): ");
+        string reference = Console.ReadLine();
+
+        Console.Write("Enter the scripture text: ");
+        string text = Console.ReadLine();
+
+        File.AppendAllText(filePath, $"{reference} - {text}{Environment.NewLine}");
+
+        Console.WriteLine("Scripture added successfully. Press Enter to continue...");
+        Console.ReadLine();
+    }
+
+    static void ViewScriptures(string filePath)
+    {
+        Console.Clear();
+        Console.WriteLine("List of Scriptures:");
+
+        string[] lines = File.ReadAllLines(filePath);
+        if (lines.Length == 0)
+        {
+            Console.WriteLine("No scriptures found.");
+        }
+        else
+        {
+            for (int i = 0; i < lines.Length; i++)
+            {
+                Console.WriteLine($"{i + 1}. {lines[i]}");
+            }
+        }
+
+        Console.WriteLine("Press Enter to continue...");
+        Console.ReadLine();
+    }
+
+    static void SelectScripture(string filePath)
+    {
+        Console.Clear();
+        Console.WriteLine("Select a Scripture to Memorize:");
+
+        string[] lines = File.ReadAllLines(filePath);
+        if (lines.Length == 0)
+        {
+            Console.WriteLine("No scriptures available. Please add some scriptures first.");
+            Console.ReadLine();
+            return;
+        }
+
+        for (int i = 0; i < lines.Length; i++)
+        {
+            Console.WriteLine($"{i + 1}. {lines[i]}");
+        }
+
+        Console.Write("Enter the number of the scripture you want to memorize: ");
+        if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= lines.Length)
+        {
+            string[] parts = lines[choice - 1].Split(" - ");
+            if (parts.Length == 2)
+            {
+                Reference reference = Reference.Parse(parts[0]);
+                Scripture selectedScripture = new Scripture(reference, parts[1]);
+                MemorizeScripture(selectedScripture);
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid selection. Press Enter to continue...");
+            Console.ReadLine();
+        }
+    }
+
+    static void MemorizeScripture(Scripture scripture)
+    {
+        Console.Clear();
+        Console.WriteLine("Starting Scripture Memorization!");
+
+        while (!scripture.IsCompletelyHidden())
+        {
+            Console.Clear();
+            Console.WriteLine(scripture.GetDisplayText());
+            Console.WriteLine();
+            Console.WriteLine("Press Enter to hide words or type 'quit' to exit.");
+            string input = Console.ReadLine();
+
+            if (input.Trim().ToLower() == "quit")
+            {
+                break;
+            }
+
+            scripture.HideRandomWords(3);
+        }
+
+        Console.WriteLine("All words are hidden. Great job!");
+        Console.WriteLine("Press Enter to return to the main menu...");
+        Console.ReadLine();
+    }
+}
+
+
+
+How It Works:
+
+Main Menu:
+Option 1: Memorize a Random Scripture
+Selects a random scripture from the file and starts the memorization process.
+Option 2: Add a New Scripture
+Prompts the user to enter a reference and text, then appends it to the file.
+Option 3: View Scriptures
+Displays all scriptures from the file in a numbered list.
+Option 4: Select a Scripture
+Displays the list of scriptures and allows the user to select one by entering its number.
+Option 5: Quit
+Exits the program.
+Example Interaction:
+Menu Display:
+css
+Copiar
+Editar
+Welcome to the Scripture Memorizer!
+1. Memorize a random scripture
+2. Add a new scripture
+3. View list of scriptures
+4. Select a scripture to memorize
+5. Quit
+Choose an option: 
+Add a New Scripture:
+vbnet
+Copiar
+Editar
+Add a New Scripture
+Enter the reference (e.g., John 3:16): John 14:6
+Enter the scripture text: I am the way, the truth, and the life. No one comes to the Father except through me.
+Scripture added successfully. Press Enter to continue...
+View Scriptures:
+vbnet
+Copiar
+Editar
+List of Scriptures:
+1. John 3:16 - For God so loved the world that He gave His only begotten Son.
+2. Proverbs 3:5-6 - Trust in the Lord with all your heart and lean not on your own understanding.
+3. John 14:6 - I am the way, the truth, and the life. No one comes to the Father except through me.
+Press Enter to continue...
+Select a Scripture:
+vbnet
+Copiar
+Editar
+Select a Scripture to Memorize:
+1. John 3:16 - For God so loved the world that He gave His only begotten Son.
+2. Proverbs 3:5-6 - Trust in the Lord with all your heart and lean not on your own understanding.
+3. John 14:6 - I am the way, the truth, and the life. No one comes to the Father except through me.
+Enter the number of the scripture you want to memorize: 3
+Memorization Process:
+vbnet
+Copiar
+Editar
+John 14:6 - I am the way, the truth, and the life. No one comes to the Father except through me.
+
+Press Enter to hide words or type 'quit' to exit.
+
+
+
+
+
+
+
+Benefits:
+Users can dynamically add scriptures to the program.
+Users can view and manage their scripture list.
+Allows both random and specific scripture selection for memorization.
