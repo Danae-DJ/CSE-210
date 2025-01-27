@@ -26,7 +26,7 @@ public class Word
         return _isHidden ? new string('_', _text.Length) : _text;
     }
 
-    public bool isHodden()
+    public bool IsHidden()
     {
         return _isHidden;
     }
