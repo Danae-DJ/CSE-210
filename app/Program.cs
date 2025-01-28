@@ -1,4 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using System;
+// See https://aka.ms/new-console-template for more information
 Console.WriteLine("Hello, World!");
 //Video tutorial: https://www.youtube.com/watch?v=axHut2e84fc&t=153s 
 
@@ -14,7 +15,7 @@ Console.WriteLine("Hello, World!");
 // PS C:\Users\danae\OneDrive\Documents\Programming with Classes\CSE-210\app> dotnet run
 //7. Enter => the new file was run and now there is a bin file into new file.
 
-
+/*
 
 //Variables (text, numbers, etc)
 //texts
@@ -27,7 +28,7 @@ float numDecimal = 1.967857F;//use F in the final of decimal number
 bool autorizado = true;
 bool seleccionado = false;
 
-
+*/
 // List of numbers
 int[] numbers = {23, 34, 45, 56, 67, 78, 89 };
-Cosole.WriteLine(numbers[0]); //0 is the first place in the list
+Console.WriteLine(numbers[0]); //0 is the first place in the list
