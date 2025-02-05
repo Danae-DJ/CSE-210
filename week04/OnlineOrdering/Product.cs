@@ -2,21 +2,31 @@ using System;
 
 class Product
 {
-    public string Name { get; }
-    public string ProductId { get; }
-    public decimal Price { get; }
-    public int Quantity { get; }
+    private string _name;
+    private string _productId;
+    private decimal _price;
+    private int _quantity;
 
     public Product(string name, string productId, decimal price, int quantity)
     {
-        Name = name;
-        ProductId = productId;
-        Price = price;
-        Quantity = quantity;
+        _name = name;
+        _productId = productId;
+        _price = price;
+        _quantity = quantity;
     }
 
     public decimal GetTotalCost()
     {
-        return Price * Quantity;
+        return _price * _quantity;
     }
-}
+
+    public string GetName()
+    {
+        return _name;
+    }
+
+    public string GetProductId()
+    {
+        return _productId;
+    }
+} //I added Get's string.

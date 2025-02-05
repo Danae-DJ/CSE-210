@@ -7,28 +7,26 @@ class Program
     {
         Console.WriteLine("Hello World! This is the OnlineOrdering Project.");
 
-        Address address1 = new Address("103 Lince St", "New York", "NY", "USA");
-        Customer customer1 = new Customer("Alice McJohnson", address1);
+        Address address1 = new Address("23 Carnaval st.", "Missuri", "MS", "USA");
+        Customer customer1 = new Customer("Monica Roma", address1);
         Order order1 = new Order(customer1);
-        order1.AddProduct(new Product("Laptop", "LPT1004", 999.99m, 1));
-        order1.AddProduct(new Product("Mouse", "MSE2002", 25.99m, 2));
+        order1.AddProduct(new Product("Tablet", "Tlb12304", 999.99m, 1));
+        order1.AddProduct(new Product("Memory USB", "MESU15402", 25.99m, 2));
 
-        Address address2 = new Address("496 Manfred St", "Toronto", "ON", "Canada");
-        Customer customer2 = new Customer("Thomas Smith", address2);
+        Address address2 = new Address("012 Karaoke St", "Ilinois", "IL", "USA");
+        Customer customer2 = new Customer("Federik Jean", address2);
         Order order2 = new Order(customer2);
-        order2.AddProduct(new Product("Keyboard", "KBD3003", 49.99m, 1));
-        order2.AddProduct(new Product("Monitor", "MON4004", 199.99m, 1));
+        order2.AddProduct(new Product("Mouse", "MuSE3295", 49.99m, 1));
+        order2.AddProduct(new Product("Laptop", "LA1504p", 199.99m, 1));
 
         List<Order> orders = new List<Order> { order1, order2 };
 
-        foreach (var order in orders)
+        foreach (Order order in orders)
         {
             Console.WriteLine(order.GetPackingLabel());
             Console.WriteLine(order.GetShippingLabel());
-            Console.WriteLine($"Total Price: ${order.CalculateTotalPrice():F2}\n");
+            Console.WriteLine($"Total Price: ${order.CalculateTotalPrice():F3}\n");
+            Console.WriteLine("\n");
         }
     }
-}
-/*What is get?
-In C#, properties are a safer alternative to public fields. A property typically has getters (get) and setters (set) to control access.
-The get; means you can read the value of Name but not modify it.*/
+}//Changes information

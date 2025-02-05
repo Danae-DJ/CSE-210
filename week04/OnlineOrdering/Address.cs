@@ -2,26 +2,26 @@ using System;
 
 class Address
 {
-    public string Street { get; }
-    public string City { get; }
-    public string State { get; }
-    public string Country { get; } 
+    private string _street;
+    private string _city;
+    private string _state;
+    private string _country; 
 
     public Address(string street, string city, string state, string country)
     {
-        Street = street;
-        City = city;
-        State = state;
-        Country = country; 
+        _street = street;
+        _city = city;
+        _state = state;
+        _country = country; 
     }
 
     public bool IsInUSA()
     {
-        return Country.ToLower() == "usa";
+        return _country.ToLower() == "usa";
     }
 
     public string GetFullAddress()
     {
-        return $"{Street}\n{City}, {State}\n{Country}";
+        return $"{_street}\n{_city}, {_state}\n{_country}";
     }
 }
