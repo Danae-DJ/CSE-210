@@ -14,5 +14,9 @@ class Program
         Console.WriteLine(mathAssignment.GetSummary());
         Console.WriteLine(mathAssignment.GetHomeworkList());
         Console.WriteLine("\n");
+
+        WritingAssignment writingAssignment = new WritingAssignment("Merry Popins", "Mundial History", "World War");
+        Console.WriteLine(writingAssignment.GetSummary());
+        Console.WriteLine(writingAssignment.GetWritingInformation());
     }
 }
