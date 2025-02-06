@@ -1,36 +1,36 @@
 using System;
 class Video
 {
-    public string _Title;
-    public string _Author;
-    public int _Length;
-    private List<Comment> Comments = new List<Comment>();
+    private string _title;
+    private string _author;
+    private int _length;
+    private List<Comment> _comments = new List<Comment>();
 
     public Video(string title, string author, int length)
     {
-        _Title = title;
-        _Author = author;
-        _Length = length;
+        _title = title;
+        _author = author;
+        _length = length;
 
     }
 
     public void AddComment(Comment comment)
     {
-        Comments.Add(comment);
+        _comments.Add(comment);
     }
 
     public int GetCommentCount()
     {
-        return Comments.Count;
+        return _comments.Count;
     }
 
     public void DisplayVideoDetails()
     {
-        Console.WriteLine($"Title: {_Title}, Author:{_Author}, Length:{_Length} seconds");
+        Console.WriteLine($"Title: {_title}, Author:{_author}, Length:{_length} seconds");
         Console.WriteLine($"Number of Comments: {GetCommentCount()}");
-        foreach(var comment in Comments)
+        foreach(var comment in _comments)
         {
-            Console.WriteLine($"-{comment._Name}: {comment._Text}");
+            Console.WriteLine($"-{comment.GetName()}: {comment.GetText()}");
         }
     }
 }
