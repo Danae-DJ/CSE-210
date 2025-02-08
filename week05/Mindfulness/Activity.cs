@@ -60,7 +60,7 @@ class Activity
         for (int i = seconds; i > 0; i--)
         {
             Console.Write("i");
-            Thread.Sleep(250);
+            Thread.Sleep(1000);
             Console.Write("\b \b");
         }
     }
