@@ -5,7 +5,7 @@ class Program
     static void Main(string[] args)
     {
         Console.WriteLine("Hello World! This is the Mindfulness Project.");
-
+        //create base
         Activity testActivity = new Activity("Test Activity", "This is a test");
         testActivity.DisplayStartMessage();
         testActivity.ShowCoundDown(5);
@@ -14,7 +14,7 @@ class Program
 
         //create a menu
         //create option
-        //create base
+        
         //crate activities
         //choice
         //pausing activity

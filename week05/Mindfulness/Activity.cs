@@ -64,7 +64,7 @@ class Activity
         }
     }
 
-    public int GetDusration()
+    public int GetDuration()
     {
         return _duration;
     }
