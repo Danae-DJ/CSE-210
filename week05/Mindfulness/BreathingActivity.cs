@@ -15,8 +15,13 @@ class BreathingActivity : Activity
 
         while (DateTime.Now < endTime)
         {   
-            /*Extra: especial animation --  */
-            
+            /*Extra: especial animation 
+            --(NOTA: I'm not sure if this works, 
+            I stopped playing it when something appeared 
+            in the terminal)  */
+            AnimateBreathing("Breat in...", 6,true);
+
+            AnimateBreathing("Now breath  out...", 6, false);
 
             /*option1 
             Console.WriteLine("\nBreath in...");
@@ -24,12 +29,16 @@ class BreathingActivity : Activity
 
             Console.WriteLine("\nNow breath out...");
             ShowCoundDown(6);*/
+
         }
         RunActivity(); //extra
         DisplayEndingMessage();
     }
 
         /*Extra: especial animation -- void */
+        /*(NOTA: I'm not sure if this works, 
+            I stopped playing it when something appeared 
+            in the terminal)*/
         public void AnimateBreathing(string message, int countDownTime, bool isBreathingIn)
         {
             int maxWidth = 25;
