@@ -13,6 +13,13 @@ class Program
 
 
         //create a menu
+        //1
+        BreathingActivity breathing = new BreathingActivity();
+        breathing.RunBreathing();
+
+        //2
+        ReflectionActivity reflection = new ReflectionActivity();
+        reflection.RunReflection();
         //create option
         
         //crate activities

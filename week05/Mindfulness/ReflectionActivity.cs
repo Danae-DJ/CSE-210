@@ -36,12 +36,14 @@ class ReflectionActivity : Activity
         Random random = new Random();
         string selectedPrompt = prompts[random.Next(prompts.Count)];
 
+        Console.WriteLine("\n");
         Console.WriteLine(selectedPrompt);
         ShowSpinner(4);
 
         while (DateTime.Now < endTime)
         {
             string question = questions[random.Next(questions.Count)];
+            Console.WriteLine("\n");
             Console.WriteLine(question);
             ShowSpinner(4);
         }
