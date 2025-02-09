@@ -21,7 +21,7 @@ class BreathingActivity : Activity
             Console.WriteLine("\nNow breath out...");
             ShowCoundDown(6);
         }
-
+        RunActivity(); //extra
         DisplayEndingMessage();
     }
 }

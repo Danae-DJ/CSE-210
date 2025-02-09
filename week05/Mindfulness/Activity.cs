@@ -77,6 +77,16 @@ class Activity
     {
         return _duration;
     }
+
+    //Extra counter times to use
+    public static int ActivityCount = 0; //i need to start with a 0
+    public void RunActivity()
+    {
+        ActivityCount++; //
+        Console.WriteLine($"This has beed performed {ActivityCount} times");
+    }
+
+
 }
 
 //tutorial thread: https://www.codeproject.com/Tips/5305519/How-to-Action-a-Spinner-in-a-Console-Application

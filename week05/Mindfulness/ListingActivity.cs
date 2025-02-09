@@ -46,6 +46,7 @@ class ListingActivity : Activity
         }
 
         Console.WriteLine($"You listen {responses.Count} items.");
+        RunActivity();//extra
         DisplayEndingMessage();
     }
 }
