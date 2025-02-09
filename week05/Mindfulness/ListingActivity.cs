@@ -39,7 +39,7 @@ class ListingActivity : Activity
         {
             Console.WriteLine(">");
             string response = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(response));
+            if (!string.IsNullOrWhiteSpace(response))
             {
                 responses.Add(response);
             }
