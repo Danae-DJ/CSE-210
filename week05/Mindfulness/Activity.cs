@@ -78,11 +78,11 @@ class Activity
         return _duration;
     }
 
-    //Extra counter times to use
+    //Extra: counter times to use
     public static int ActivityCount = 0; //i need to start with a 0
     public void RunActivity()
     {
-        ActivityCount++; //
+        ActivityCount++; 
         Console.WriteLine($"This has beed performed {ActivityCount} times");
     }
 

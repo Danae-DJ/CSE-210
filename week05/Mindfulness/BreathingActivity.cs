@@ -14,14 +14,42 @@ class BreathingActivity : Activity
         DateTime endTime = DateTime.Now.AddSeconds(duration);
 
         while (DateTime.Now < endTime)
-        {
+        {   
+            /*Extra: especial animation --  */
+            
+
+            /*option1 
             Console.WriteLine("\nBreath in...");
             ShowCoundDown(6);
 
             Console.WriteLine("\nNow breath out...");
-            ShowCoundDown(6);
+            ShowCoundDown(6);*/
         }
         RunActivity(); //extra
         DisplayEndingMessage();
     }
+
+        /*Extra: especial animation -- void */
+        public void AnimateBreathing(string message, int countDownTime, bool isBreathingIn)
+        {
+            int maxWidth = 25;
+            double stepFactor = isBreathingIn ? 0.5 : -0.2;
+
+            for (int i = 0; i < countDownTime; i++)
+            {
+                int currentWidth = (int)(maxWidth * (i /(double)countDownTime));
+                string text = new string(' ', currentWidth) + message;
+                Console.Clear();
+                Console.WriteLine(text);
+                Thread.Sleep(500);
+            }
+        }
+        
+
+
+
 }
+
+
+//https://stackoverflow.com/questions/40242279/simulate-loading-with-thread-sleep
+//https://www.youtube.com/watch?v=A3UqpcQu4E0
