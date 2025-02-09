@@ -1,3 +1,5 @@
+
+//Activity.cs
 using System;
 using System.Threading;
 class Activity
@@ -15,26 +17,33 @@ class Activity
     public void DisplayStartMessage()
     {
         Console.Clear();
-        Console.WriteLine($"Let's start with: {_name}");
+        Console.WriteLine($"Wellcome to the {_name}");
         Console.WriteLine(_description);
-        Console.WriteLine("Enter the duration (seconds): ");
+        Console.WriteLine("How long, would you like for your session? (seconds): ");
         _duration = int.Parse(Console.ReadLine());
 
-        Console.WriteLine("\nGo, get ready");
+        Console.WriteLine("\nGet ready...");
         ShowSpinner(3);
     }
 
     public void DisplayEndingMessage()
     {
-        Console.WriteLine("");
-        Console.WriteLine($"Great Job! You have complete the activity.");
-        Console.WriteLine($"You spent {_duration} seconds on {_name}.");
-        ShowSpinner(3);
+        Console.WriteLine($"\nGreat Job!");
+        Console.WriteLine($"You have completed {_duration} seconds of the {_name}.");
+        ShowSpinner(4);
     }
 
     public void ShowSpinner(int seconds)
-    {
-        for (int i = 0; i < seconds; i++)
+    {   //2 option
+            string[] spinner = { "-", "\\", "|", "/" };
+        for (int i = 0; i < seconds * 4; i++)
+        {
+            Console.Write(spinner[i % 4]);
+            Thread.Sleep(500);
+            Console.Write("\b ");
+        }
+/*      one option...
+         for (int i = 0; i < seconds; i++)
         {
             Console.Write("-");
             Thread.Sleep(250);
@@ -51,7 +60,7 @@ class Activity
             Console.Write("/");
             Thread.Sleep(250);
             Console.Write("\b\b");
-        }
+        }*/
     }
 
     public void ShowCoundDown( int seconds)
@@ -60,7 +69,7 @@ class Activity
         {
             Console.Write("i");
             Thread.Sleep(1000);
-            Console.Write("\b \b");
+            Console.Write("\b ");
         }
     }
 

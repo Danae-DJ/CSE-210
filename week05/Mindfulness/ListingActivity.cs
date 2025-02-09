@@ -1,3 +1,5 @@
+
+//ListingActivity.cs
 using System;
 using System.Threading;
 using System.Collections.Generic;
@@ -26,18 +28,16 @@ class ListingActivity : Activity
         Random random = new Random();
         string selectedPrompt = prompts[random.Next(prompts.Count)];
 
-        Console.WriteLine("\n");
-        Console.WriteLine("You have a few seconds to think before you start again...");
+        Console.WriteLine("\nYou have a few seconds to think before you start again...");
         ShowSpinner(6);
 
-        Console.WriteLine("\n");
-        Console.WriteLine("Estart listing your ideas. Press enter each one: ");
-
+        Console.WriteLine("\nStart listing your ideas. Press enter each one: ");
 
         List<string> responses = new List<string>();
+
         while (DateTime.Now < endTime)
         {
-            Console.WriteLine(">");
+            Console.WriteLine("> ");
             string response = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(response))
             {

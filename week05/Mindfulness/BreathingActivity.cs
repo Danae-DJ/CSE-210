@@ -1,3 +1,4 @@
+//BreathingActivity
 using System;
 
 class BreathingActivity : Activity
@@ -14,13 +15,11 @@ class BreathingActivity : Activity
 
         while (DateTime.Now < endTime)
         {
-            Console.WriteLine("\n");
-            Console.WriteLine("Breath in...");
-            ShowCoundDown(4);
+            Console.WriteLine("\nBreath in...");
+            ShowCoundDown(6);
 
-            Console.WriteLine("\n");
-            Console.WriteLine("Breath out...");
-            ShowCoundDown(4);
+            Console.WriteLine("\nNow breath out...");
+            ShowCoundDown(6);
         }
 
         DisplayEndingMessage();
