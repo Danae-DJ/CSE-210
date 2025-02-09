@@ -31,8 +31,9 @@ class BreathingActivity : Activity
             ShowCoundDown(6);*/
 
         }
-        RunActivity(); //extra
+        
         DisplayEndingMessage();
+        RunActivity(); //extra
     }
 
         /*Extra: especial animation -- void */

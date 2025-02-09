@@ -46,8 +46,9 @@ class ReflectionActivity : Activity
             Console.WriteLine("\n" + question);
             ShowSpinner(4);
         }
-        RunActivity();//extra
+        
         DisplayEndingMessage();
+        RunActivity();//extra
     }
 
 }
