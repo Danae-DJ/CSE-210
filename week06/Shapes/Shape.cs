@@ -1,6 +1,6 @@
 using System;
 
-class Shape
+public abstract class Shape
 {
     private string _color;
 
@@ -14,9 +14,11 @@ class Shape
         return _color;
     }
 
-    public void SetColor(string)
+    public void SetColor(string color)
     {
-
+        _color = color;
     }
+
+    public abstract double GetArea();
 
 }

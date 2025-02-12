@@ -10,8 +10,8 @@ class Square
         _side = side;
     }
 
-    public string GetArea()
+    public double GetArea()
     {
-        return $"{_side * _side}";
+        return _side * _side;
     }
 }
