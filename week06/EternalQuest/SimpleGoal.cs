@@ -8,7 +8,7 @@ public class SimpleGoal : Goal
     public SimpleGoal(string name, string description, int points)
     : base(name, description, points) //return
     {
-        _isComplete = isComplete
+        _isComplete = false; //
     }
 
     public override void RecordEvent()
@@ -27,3 +27,5 @@ public class SimpleGoal : Goal
     }
 
 }
+
+//bool : https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/true-false-operators
