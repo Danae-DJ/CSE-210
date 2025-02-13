@@ -10,6 +10,31 @@ public class ChecklistGoal : Goal
     public ChecklistGoal (string name, string description, int points, int target, int bonus)
     :base(name, description, points)
     {
+
+    }
+
+    public override void RecordEvent()
+    {
+        _amountCompleted++;
+        int totalPoints = _points;
+
+        if (_amountCompleted++ >= _target)
+        {
+            totalPoints += _bonus;
+            Console.WriteLine($"Congratulations! You complete your goal. Now you earned {_bonus} extra points!");
+        }
+
+        Console.WriteLine($"Look at this! You earned {totalPoints} points!");
+    }
+
+    public override bool IsComplete()
+    {
+        return _amountCompleted >= _target;
+    }
+
+    public override string GetDetailsString()
+    {
+        return $"[{(IsComplete() ? "X" : " ")}] {_shorName} ({_amountCompleted}/{_target})";
         
     }
 }
