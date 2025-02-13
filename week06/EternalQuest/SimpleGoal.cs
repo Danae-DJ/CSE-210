@@ -13,17 +13,18 @@ public class SimpleGoal : Goal
 
     public override void RecordEvent()
     {
-        throw new NotImplementedException();
+        _isComplete = true;
+        Console.WriteLine($"Great! You earned {_points} points!");
     }
 
     public override bool IsComplete()
     {
-        throw new NotImplementedException();
+        return _isComplete; //here
     }
 
     public override string GetStringRepresentation()
     {
-        throw new NotImplementedException();
+        return $"SimpleGoal|{_shortName}| {_description}| {_points}| {_isComplete}";
     }
 
 }
