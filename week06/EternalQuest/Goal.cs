@@ -28,3 +28,7 @@ public abstract class Goal
     public abstract string GetStringRepresentation()
     {}
 }
+
+
+//https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/abstract
+//https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/object-oriented/polymorphism
