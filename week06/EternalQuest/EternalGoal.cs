@@ -12,6 +12,7 @@ public class EternalGoal : Goal
         Console.WriteLine($"Nice! You earned {_points} points! This goal is never complete.");
     }
 
+
     public override bool IsComplete()
     {
         return false;

@@ -21,7 +21,7 @@ public class ChecklistGoal : Goal
         _amountCompleted++;
         int totalPoints = _points;
 
-        if (_amountCompleted++ >= _target)
+        if (_amountCompleted >= _target)
         {
             totalPoints += _bonus;
             Console.WriteLine($"Congratulations! You complete your goal. Now you earned {_bonus} extra points!");
@@ -38,7 +38,6 @@ public class ChecklistGoal : Goal
     public override string GetDetailsString()
     {
         return $"[{(IsComplete() ? "X" : " ")}] {_shortName} ({_amountCompleted}/{_target})";
-
     }
 
     public override string GetStringRepresentation()

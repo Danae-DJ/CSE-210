@@ -2,10 +2,20 @@
 //GoalManager.cs
 using System;
 using System.Collections.Generic;
+using System.IO;
 public class GoalManager
 {//list
     private List<Goal> _goals = new List<Goal>();
     private int _score = 0;
+
+    
+    //1option menu type og goal
+    public GoalManager()
+    {
+        _goals = new List<Goal>();
+        _score = 0;
+    }
+
 
 
     public void CreateGoal() //1
@@ -89,20 +99,25 @@ public class GoalManager
     public void RecordEvent() //3
     {
         ListGoals();
-        Console.Write("Enter the number of the goal you complete: ");
+        Console.Write("Enter the number of the goal you completed: ");
         int choice = int.Parse(Console.ReadLine()) - 1;
 
         if (choice >= 0 && choice < _goals.Count)
         {
-            _goals[choice].RecordEvent();
-            _score += 10; //this number could be change if I want it.
-        }
+            Goal selectedGoal = _goals[choice];
+            selectedGoal.RecordEvent();
 
+            if (selectedGoal is SimpleGoal || selectedGoal is ChecklistGoal)
+            {
+                _score += selectedGoal._points;  // Increase score when recording events
+            }
+        }
         else
         {
             Console.WriteLine("Invalid choice.");
         }
     }
+
 
 
 
@@ -184,13 +199,6 @@ public class GoalManager
         
 
 
-        //1option menu type og goal
-        /*public GoalManager()
-        {
-            _goals = new List<Goal>();
-            _score = 0;
-        }
-    */
             //opt 1 create a new goal
             /*case 4:
                 return;
@@ -224,3 +232,24 @@ public class GoalManager
 //writer save:  https://learn.microsoft.com/en-us/dotnet/api/system.io.streamwriter?view=net-9.0
 //reader list: https://learn.microsoft.com/en-us/dotnet/api/system.io.streamreader?view=net-9.0
 //https://www.geeksforgeeks.org/c-sharp-trim-method/
+
+
+/*
+public void RecordEvent() //3
+    {
+        ListGoals();
+        Console.Write("Enter the number of the goal you complete: ");
+        int choice = int.Parse(Console.ReadLine()) - 1;
+
+        if (choice >= 0 && choice < _goals.Count)
+        {
+            _goals[choice].RecordEvent();
+            _score += 10; //this number could be change if I want it.
+        }
+
+        else
+        {
+            Console.WriteLine("Invalid choice.");
+        }
+    }
+*/

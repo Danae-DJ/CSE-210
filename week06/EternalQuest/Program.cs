@@ -37,11 +37,11 @@ class Program
                     break;
 
                 case "4":
-                    goalManager.SaveGoals();
+                    goalManager.SaveGoals("goals.txt");//using a file
                     break;
 
                 case "5":
-                    goalManager.LoadGoals();
+                    goalManager.LoadGoals("goals.txt");
                     break;
 
                 case "6":
