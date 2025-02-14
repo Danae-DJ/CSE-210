@@ -37,12 +37,20 @@ public class GoalManager
         //opt 2
         if (choice == 4) return;
 
-        Console.WriteLine("Enter goal name: ");
+        Console.Write("Enter goal name: ");
         string name = Console.ReadLine();
-        Console.WriteLine("Enter description: ");
+        Console.Write("Enter description: ");
         string description = Console.ReadLine();
+        //Console.WriteLine("Enter points: ");
+        //int points = int.Parse(Console.ReadLine());
+
         Console.WriteLine("Enter points: ");
-        int points = int.Parse(Console.ReadLine());
+        if (!int.TryParse(Console.ReadLine(), out int points))
+        {
+            Console.WriteLine("Invalid input. Please enter a number.");
+            return;
+        }
+
 
         Goal newGoal = null;
 
