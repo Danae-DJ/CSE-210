@@ -1,3 +1,4 @@
+
 //CheklistGoal.cs
 using System;
 
@@ -35,6 +36,6 @@ public class ChecklistGoal : Goal
     public override string GetDetailsString()
     {
         return $"[{(IsComplete() ? "X" : " ")}] {_shorName} ({_amountCompleted}/{_target})";
-        
+
     }
 }

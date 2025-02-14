@@ -2,10 +2,10 @@
 using System;
 
 public abstract class Goal
-{
-    private string _shortName;
-    private string _description;
-    private int _points;
+{//private or pretected???
+    protected string _shortName; //Its accessible now
+    protected string _description;
+    protected int _points;
 
     public Goal( string name, string description, int points)
     {
@@ -26,3 +26,4 @@ public abstract class Goal
 
 //https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/abstract
 //https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/object-oriented/polymorphism
+//https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/protected

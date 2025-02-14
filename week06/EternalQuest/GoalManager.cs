@@ -1,3 +1,4 @@
+
 //GoalManager.cs
 using System;
 
@@ -56,3 +57,5 @@ public class GoalManager() : Goal
 
 
 }
+
+//What I need to change or add?
