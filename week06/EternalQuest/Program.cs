@@ -42,9 +42,11 @@ class Program
 
                 case "5":
                     goalManager.LoadGoals();
+                    break;
 
                 case "6":
                     Console.WriteLine("Goodbye Champion!");
+                    break;
 
                 default:
                     Console.WriteLine("Invalid option. Try with other option.");

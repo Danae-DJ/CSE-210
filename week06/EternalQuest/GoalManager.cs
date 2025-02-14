@@ -8,7 +8,7 @@ public class GoalManager
     private int _score = 0;
 
 
-    public void CreateGoal()
+    public void CreateGoal() //1
     {//menu
         Console.WriteLine("What type of goal would you like to create?");
         Console.WriteLine("1. Simple Goal");
@@ -65,7 +65,7 @@ public class GoalManager
 
 
 
-    public void ListGoals()
+    public void ListGoals() //2
     {
         if (_goals.Count == 0)
         {
@@ -86,7 +86,7 @@ public class GoalManager
 
 
     
-    public void RecordEvent()
+    public void RecordEvent() //3
     {
         ListGoals();
         Console.Write("Enter the number of the goal you complete: ");
@@ -110,7 +110,7 @@ public class GoalManager
 
 
 
-    public void SaveGoals(string filetext)
+    public void SaveGoals(string filetext) //4
     {
         using (StreamWriter writer = new StreamWriter(filetext))
         {
@@ -129,7 +129,7 @@ public class GoalManager
 
 
 
-    public void LoadGoals(string filetext)
+    public void LoadGoals(string filetext) //5
     {
         if (File.Exists(filetext))
         {
@@ -177,7 +177,7 @@ public class GoalManager
         {
             Console.WriteLine("No saved goals found.");
         }
-        
+
     }   
 
 }      
