@@ -11,7 +11,9 @@ public class ChecklistGoal : Goal
     public ChecklistGoal (string name, string description, int points, int target, int bonus)
     :base(name, description, points)
     {
-
+        _amountCompleted = 0;
+        _target = target;
+        _bonus = bonus;
     }
 
     public override void RecordEvent()
@@ -35,7 +37,12 @@ public class ChecklistGoal : Goal
 
     public override string GetDetailsString()
     {
-        return $"[{(IsComplete() ? "X" : " ")}] {_shorName} ({_amountCompleted}/{_target})";
+        return $"[{(IsComplete() ? "X" : " ")}] {_shortName} ({_amountCompleted}/{_target})";
 
+    }
+
+    public override string GetStringRepresentation()
+    {
+        return $"ChecklistGoal|{_shortName}|{_description}|{_points}|{_target}|{_bonus}|{_amountCompleted}";
     }
 }

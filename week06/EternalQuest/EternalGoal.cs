@@ -9,7 +9,7 @@ public class EternalGoal : Goal
 
     public override void RecordEvent()
     {
-        Console.WriteLine($"Keep going! You earned {_points} points!");
+        Console.WriteLine($"Nice! You earned {_points} points! This goal is never complete.");
     }
 
     public override bool IsComplete()
@@ -19,7 +19,7 @@ public class EternalGoal : Goal
 
     public override string GetDetailsString()
     {
-        return $"[] {_shortName} - {_description}";
+        return $"[∞] {_shortName}: {_description}";
     }
 
     public override string GetStringRepresentation()
