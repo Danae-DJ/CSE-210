@@ -241,8 +241,8 @@ public class GoalManager
 
 }      
         
-
-
+//stop
+//stop now
             //opt 1 create a new goal
             /*case 4:
                 return;
