@@ -169,7 +169,160 @@ public class GoalManager
 
 
     public void LoadGoals(string filetext) //5
+    {   
+        if (!File.Exists(filetext))
+        {
+            Console.WriteLine("No saved goals found.");
+            return;
+        }
+        
+        _goals.Clear();
+
+        using (StreamReader reader = new StreamReader(filetext))
+        {   
+            if (!int.TryParse(reader.ReadLine(), out _score))
+            {
+                Console.WriteLine("Sorry, error reading score.");
+                return;
+            }
+
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                string[] parts = line.Split('|');
+                if (parts.Length < 4)
+                {
+                    Console.WriteLine("This is an invalid data format.");
+                    continue;
+                }
+
+                string type = parts[0].Trim();
+                string name = parts[1].Trim();
+                string description = parts[2].Trim();
+                int points = int.Parse(parts[3].Trim());
+
+                Goal goal = null;
+
+                if (type == "SimpleGoal")
+                {
+                    bool isComplete = bool.Parse(parts[4].Trim());
+                    goal = new SimpleGoal(name, description, points);
+                    if (isComplete) goal.RecordEvent();
+                }
+
+                else if (type == "EternalGoal")
+                {
+                    goal = new EternalGoal(name, description, points);
+                }
+
+                else if (type == "ChecklistGoal")
+                {
+                    if (parts.Length < 7)
+                    {
+                        Console.WriteLine("Invalid Checklist data. Skipping");
+                        continue;
+                    }
+
+                    int target = int.Parse(parts[4].Trim());
+                    int bonus = int.Parse(parts[5].Trim());
+                    int amountCompleted = int.Parse(parts[6].Trim());
+
+                    goal = new ChecklistGoal(name, description, points, target, bonus);
+                    ((ChecklistGoal)goal)._amountComplete = amountCompleted;
+                }
+
+                    if (goal != null)
+                        _goals.Add(goal);
+            }
+        }
+        Console.WriteLine("Goals loaded successfully.");
+    
+    }   
+
+}      
+        
+
+
+            //opt 1 create a new goal
+            /*case 4:
+                return;
+
+            default:
+                Console.WriteLine("Invalid choice. Please, returning to menu and rectify your choice");
+                break;
+        }
+
+        _goals.Add(newGoal);
+        Console.WriteLine("Goal added successfully!");
+    }
+
+    public void ListGoals()
     {
+        if (_goals.Count == 0)
+        {
+            Console.WriteLine("No goals have been added yet");
+            return;
+        }
+
+        for (int i = 0; i <_goals.Count; i++)
+        {
+            Console.WriteLine($"{_goals[i].GetDetailsString()}");
+        }
+    }
+
+}
+
+//What its better? */
+//writer save:  https://learn.microsoft.com/en-us/dotnet/api/system.io.streamwriter?view=net-9.0
+//reader list: https://learn.microsoft.com/en-us/dotnet/api/system.io.streamreader?view=net-9.0
+//https://www.geeksforgeeks.org/c-sharp-trim-method/
+
+
+/* why dont working????
+public void RecordEvent() //3
+    {
+        ListGoals();
+        Console.Write("Enter the number of the goal you complete: ");
+        int choice = int.Parse(Console.ReadLine()) - 1;
+
+        if (choice >= 0 && choice < _goals.Count)
+        {
+            _goals[choice].RecordEvent();
+            _score += 10; //this number could be change if I want it.
+        }
+
+        else
+        {
+            Console.WriteLine("Invalid choice.");
+        }
+    }
+
+
+public void RecordEvent() //3
+    {
+        ListGoals();
+        Console.Write("Enter the number of the goal you completed: ");
+        
+
+        if (choice >= 0 && choice < _goals.Count)
+        {
+            Goal selectedGoal = _goals[choice];
+            selectedGoal.RecordEvent();
+
+            if (selectedGoal is SimpleGoal || selectedGoal is ChecklistGoal)
+            {
+                _score += selectedGoal._points;  // Increase score when recording events
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid choice.");
+        }
+    }
+
+
+public void LoadGoals(string filetext) //5
+    {   
         if (File.Exists(filetext))
         {
             _goals.Clear();
@@ -218,62 +371,4 @@ public class GoalManager
         }
 
     }   
-
-}      
-        
-
-
-            //opt 1 create a new goal
-            /*case 4:
-                return;
-
-            default:
-                Console.WriteLine("Invalid choice. Please, returning to menu and rectify your choice");
-                break;
-        }
-
-        _goals.Add(newGoal);
-        Console.WriteLine("Goal added successfully!");
-    }
-
-    public void ListGoals()
-    {
-        if (_goals.Count == 0)
-        {
-            Console.WriteLine("No goals have been added yet");
-            return;
-        }
-
-        for (int i = 0; i <_goals.Count; i++)
-        {
-            Console.WriteLine($"{_goals[i].GetDetailsString()}");
-        }
-    }
-
-}
-
-//What its better? */
-//writer save:  https://learn.microsoft.com/en-us/dotnet/api/system.io.streamwriter?view=net-9.0
-//reader list: https://learn.microsoft.com/en-us/dotnet/api/system.io.streamreader?view=net-9.0
-//https://www.geeksforgeeks.org/c-sharp-trim-method/
-
-
-/*
-public void RecordEvent() //3
-    {
-        ListGoals();
-        Console.Write("Enter the number of the goal you complete: ");
-        int choice = int.Parse(Console.ReadLine()) - 1;
-
-        if (choice >= 0 && choice < _goals.Count)
-        {
-            _goals[choice].RecordEvent();
-            _score += 10; //this number could be change if I want it.
-        }
-
-        else
-        {
-            Console.WriteLine("Invalid choice.");
-        }
-    }
 */
