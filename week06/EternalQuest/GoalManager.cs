@@ -67,9 +67,24 @@ public class GoalManager
 
             case 3:
                 Console.Write("Enter target count: ");
+                if (!int.TryParse(Console.ReadLine(), out int target))
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
+                    return;
+                }
+
+                Console.Write("Enter bonus points: ");
+                if (!int.TryParse(Console.ReadLine(), out int bonus))
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
+                    return;
+                }
+
+                /*Console.Write("Enter target count: ");
                 int target = int.Parse(Console.ReadLine());
                 Console.Write("Enter bonus points: ");
-                int bonus = int.Parse(Console.ReadLine());
+                int bonus = int.Parse(Console.ReadLine());*/
+
                 newGoal = new ChecklistGoal(name, description, points, target, bonus);
                 break;
 
@@ -114,22 +129,17 @@ public class GoalManager
     {
         ListGoals();
         Console.Write("Enter the number of the goal you completed: ");
-        int choice = int.Parse(Console.ReadLine()) - 1;
-
-        if (choice >= 0 && choice < _goals.Count)
-        {
-            Goal selectedGoal = _goals[choice];
-            selectedGoal.RecordEvent();
-
-            if (selectedGoal is SimpleGoal || selectedGoal is ChecklistGoal)
-            {
-                _score += selectedGoal._points;  // Increase score when recording events
-            }
-        }
-        else
+        
+        if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1|| choice > _goals.Count)
         {
             Console.WriteLine("Invalid choice.");
+            return;
         }
+
+        Goal selecteGoal = _goals[choice - 1];
+        selecteGoal.RecordEvent();
+        _score += selecteGoal._points;
+       
     }
 
 
