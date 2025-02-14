@@ -26,7 +26,13 @@ public class GoalManager
         Console.WriteLine("3. Checklist Goal");
         Console.WriteLine("4. Exit");
         Console.WriteLine("*************************************************");
-        int choice = int.Parse(Console.ReadLine());
+        //int choice = int.Parse(Console.ReadLine());
+        if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1|| choice > 4)
+        {
+            Console.WriteLine("This option is invalid. Please enter a number between 1 - 4.");
+            return;
+        }
+
 
         //opt 2
         if (choice == 4) return;
