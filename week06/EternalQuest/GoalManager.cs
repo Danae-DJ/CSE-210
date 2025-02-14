@@ -4,14 +4,8 @@ using System;
 using System.Collections.Generic;
 public class GoalManager
 {//list
-    private List<Goal> _goals;
-    private int _score;
-
-    public GoalManager()
-    {
-        _goals = new List<Goal>();
-        _score = 0;
-    }
+    private List<Goal> _goals = new List<Goal>();
+    private int _score = 0;
 
 
     public void CreateGoal()
@@ -64,9 +58,140 @@ public class GoalManager
         }    
 
     }
-}    
 
-            //opt 1
+
+
+
+
+
+
+    public void ListGoals()
+    {
+        if (_goals.Count == 0)
+        {
+            Console.WriteLine("No goals available.");
+            return;
+        }
+
+        Console.WriteLine("Your Goals: ");
+        for (int i = 0; i < _goals.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {_goals[i].GetDetailsString()}");
+        }
+    }
+
+
+
+
+
+
+    
+    public void RecordEvent()
+    {
+        ListGoals();
+        Console.Write("Enter the number of the goal you complete: ");
+        int choice = int.Parse(Console.ReadLine()) - 1;
+
+        if (choice >= 0 && choice < _goals.Count)
+        {
+            _goals[choice].RecordEvent();
+            _score += 10; //this number could be change if I want it.
+        }
+
+        else
+        {
+            Console.WriteLine("Invalid choice.");
+        }
+    }
+
+
+
+
+
+
+
+    public void SaveGoals(string filetext)
+    {
+        using (StreamWriter writer = new StreamWriter(filetext))
+        {
+            writer.WriteLine(_score);
+            foreach (Goal goal in _goals)
+            {
+                writer.WriteLine(goal.GetStringRepresentation());
+            }
+        }
+        Console.WriteLine("Goals saved successfully.");
+    }
+
+
+
+
+
+
+
+    public void LoadGoals(string filetext)
+    {
+        if (File.Exists(filetext))
+        {
+            _goals.Clear();
+            using (StreamReader reader = new StreamReader(filetext))
+            {
+                _score = int.Parse(reader.ReadLine());
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] parts = line.Split('|');
+                    string type = parts[0].Trim();
+                    string name = parts[1].Trim();
+                    string description = parts[2].Trim();
+                    int points = int.Parse(parts[3].Trim());
+
+                    Goal goal = null;
+                    if (type == "SimpleGoal")
+                    {
+                        bool isComplete = bool.Parse(parts[4].Trim());
+                        goal = new SimpleGoal(name, description, points);
+                        if (isComplete) goal.RecordEvent();
+                    }
+
+                    else if (type == "EternalGoal")
+                    {
+                        goal = new EternalGoal(name, description, points);
+                    }
+
+                    else if (type == "ChecklistGoal")
+                    {
+                        int target = int.Parse(parts[4].Trim());
+                        int bonus = int.Parse(parts[5].Trim());
+                        goal = new ChecklistGoal(name, description, points,target, bonus);
+                    }
+
+                    if (goal != null)
+                        _goals.Add(goal);
+                }
+            }
+            Console.WriteLine("Goals loaded successfully.");
+        }
+
+        else
+        {
+            Console.WriteLine("No saved goals found.");
+        }
+        
+    }   
+
+}      
+        
+
+
+        //1option menu type og goal
+        /*public GoalManager()
+        {
+            _goals = new List<Goal>();
+            _score = 0;
+        }
+    */
+            //opt 1 create a new goal
             /*case 4:
                 return;
 
@@ -96,3 +221,6 @@ public class GoalManager
 }
 
 //What its better? */
+//writer save:  https://learn.microsoft.com/en-us/dotnet/api/system.io.streamwriter?view=net-9.0
+//reader list: https://learn.microsoft.com/en-us/dotnet/api/system.io.streamreader?view=net-9.0
+//https://www.geeksforgeeks.org/c-sharp-trim-method/
