@@ -3,11 +3,11 @@ using System;
 
 public class EternalGoal : Goal
 {
-    private int _timeRecorded; //extra
+    private int _timeRecorded; 
     public EternalGoal(string name, string description, int points)
     : base(name, description, points)
     {
-        _timeRecorded = 0; //extra
+        _timeRecorded = 0; 
     }
 
     public override void RecordEvent()

@@ -5,8 +5,11 @@ class Program
 {
     static void Main(string[] args)
     {
+        Phrases phrases = new Phrases();
+
         Console.WriteLine("Hello World! This is the EternalQuest Project.");
-    
+        //Greeting with a quote: Extra
+        Console.WriteLine($"The Motivation is: {phrases.GetRamdomQuote()}");
         GoalManager goalManager = new GoalManager();
 
         while(true)
@@ -37,14 +40,15 @@ class Program
                     break;
 
                 case "4":
-                    goalManager.SaveGoals("goals.txt");//using a file
+                    goalManager.SaveGoals("goals.txt");//don't forget using a file
                     break;
 
                 case "5":
                     goalManager.LoadGoals("goals.txt");
                     break;
 
-                case "6":
+                case "6": //farewell with a metaphor: Extra
+                    Console.WriteLine($"Remember that: {phrases.GetRamdomMetaphor()}");
                     Console.WriteLine("Goodbye Champion!");
                     return;
 
