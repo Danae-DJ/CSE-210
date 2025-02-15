@@ -168,7 +168,7 @@ public class GoalManager
 
 
 
-
+//WORKING!!! DON'T MOVING NOTHING!!!!! I CAN SEE YOU ++++
     public void LoadGoals(string filetext) //5
     {   
         if (!File.Exists(filetext))
@@ -244,7 +244,7 @@ public class GoalManager
 
                     goal = new ChecklistGoal(name, description, points, target, bonus);
                     ((ChecklistGoal)goal).SetAmountCompleted(amountCompleted);
-                }
+                }//DON'T TOUCH FINALLY WORKING!!!
 
                     if (goal != null)
                         _goals.Add(goal);
