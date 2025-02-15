@@ -46,7 +46,7 @@ class Program
 
                 case "6":
                     Console.WriteLine("Goodbye Champion!");
-                    break;
+                    return;
 
                 default:
                     Console.WriteLine("Invalid option. Try with other option.");

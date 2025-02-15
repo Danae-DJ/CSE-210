@@ -14,22 +14,20 @@ public class SimpleGoal : Goal
     public override void RecordEvent()
     {
         _isComplete = true;
-        Console.WriteLine($"Great! You earned {_points} points!");
+        Console.WriteLine($"Great! You earned {Points} points!");
     }
 
-    public override bool IsComplete()
-    {
-        return _isComplete; //here
-    }
+    public override bool IsComplete() => _isComplete; //here
+    
     
     public override string GetDetailsString()
     {
-        return $"[{(_isComplete ? "X" : " ")}] {_shortName} - {_description}";
+        return $"[{(_isComplete ? "X" : " ")}] {ShortName} - {Description}";
     }
 
     public override string GetStringRepresentation()
     {
-        return $"SimpleGoal|{_shortName}|{_description}|{_points}|{_isComplete}";
+        return $"SimpleGoal|{ShortName}|{Description}|{Points}|{_isComplete}";
     }
 
 }

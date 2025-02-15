@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.IO;
 public class GoalManager
 {//list
-    private List<Goal> _goals = new List<Goal>();
-    private int _score = 0;
+    private List<Goal> _goals;
+    private int _score;
 
     
     //1option menu type og goal
@@ -47,7 +47,7 @@ public class GoalManager
         Console.WriteLine("Enter points: ");
         if (!int.TryParse(Console.ReadLine(), out int points))
         {
-            Console.WriteLine("Invalid input. Please enter a number.");
+            Console.WriteLine("Invalid input. Please enter a valid number.");
             return;
         }
 
@@ -69,14 +69,14 @@ public class GoalManager
                 Console.Write("Enter target count: ");
                 if (!int.TryParse(Console.ReadLine(), out int target))
                 {
-                    Console.WriteLine("Invalid input. Please enter a number.");
+                    Console.WriteLine("Invalid input. Please enter a valid number.");
                     return;
                 }
 
                 Console.Write("Enter bonus points: ");
                 if (!int.TryParse(Console.ReadLine(), out int bonus))
                 {
-                    Console.WriteLine("Invalid input. Please enter a number.");
+                    Console.WriteLine("Invalid input. Please enter a valid number.");
                     return;
                 }
 
@@ -138,8 +138,8 @@ public class GoalManager
 
         Goal selecteGoal = _goals[choice - 1];
         selecteGoal.RecordEvent();
-        _score += selecteGoal._points;
-       
+        _score += selecteGoal.Points;//
+       //DON'T TOUCH !!!! NOW WORKING!!!
     }
 
 
@@ -180,6 +180,12 @@ public class GoalManager
 
         using (StreamReader reader = new StreamReader(filetext))
         {   
+            if (reader.Peek() == -1)
+            {
+                Console.WriteLine("The file is empty.");
+                return;
+            }
+
             if (!int.TryParse(reader.ReadLine(), out _score))
             {
                 Console.WriteLine("Sorry, error reading score.");
@@ -199,7 +205,11 @@ public class GoalManager
                 string type = parts[0].Trim();
                 string name = parts[1].Trim();
                 string description = parts[2].Trim();
-                int points = int.Parse(parts[3].Trim());
+                if (!int.TryParse(parts[3].Trim(), out int points))
+                {
+                    Console.WriteLine("This is an  invalid points value. Skipping goal.");
+                    continue;
+                }
 
                 Goal goal = null;
 
@@ -223,12 +233,16 @@ public class GoalManager
                         continue;
                     }
 
-                    int target = int.Parse(parts[4].Trim());
-                    int bonus = int.Parse(parts[5].Trim());
-                    int amountCompleted = int.Parse(parts[6].Trim());
+                    if (!int.TryParse(parts[4].Trim(), out int target) ||
+                        !int.TryParse(parts[5].Trim(), out int bonus) ||
+                        !int.TryParse(parts[6].Trim(), out int amountCompleted))
+                    {
+                        Console.WriteLine("Invalid Checklist data. Skipping");
+                        continue;
+                    }
 
                     goal = new ChecklistGoal(name, description, points, target, bonus);
-                    ((ChecklistGoal)goal)._amountComplete = amountCompleted;
+                    ((ChecklistGoal)goal).SetAmountCompleted(amountCompleted);
                 }
 
                     if (goal != null)
@@ -241,7 +255,7 @@ public class GoalManager
 
 }      
         
-//stop
+//Stop now
 //stop now
             //opt 1 create a new goal
             /*case 4:
@@ -370,5 +384,73 @@ public void LoadGoals(string filetext) //5
             Console.WriteLine("No saved goals found.");
         }
 
-    }   
+
+    
+    public void LoadGoals(string filetext) //5
+    {   
+        if (!File.Exists(filetext))
+        {
+            Console.WriteLine("No saved goals found.");
+            return;
+        }
+        
+        _goals.Clear();
+
+        using (StreamReader reader = new StreamReader(filetext))
+        {   
+            if (!int.TryParse(reader.ReadLine(), out _score))
+            {
+                Console.WriteLine("Sorry, error reading score.");
+                return;
+            }
+
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                string[] parts = line.Split('|');
+                if (parts.Length < 4)
+                {
+                    Console.WriteLine("This is an invalid data format.");
+                    continue;
+                }
+
+                string type = parts[0].Trim();
+                string name = parts[1].Trim();
+                string description = parts[2].Trim();
+                int points = int.Parse(parts[3].Trim());
+
+                Goal goal = null;
+
+                if (type == "SimpleGoal")
+                {
+                    bool isComplete = bool.Parse(parts[4].Trim());
+                    goal = new SimpleGoal(name, description, points);
+                    if (isComplete) goal.RecordEvent();
+                }
+
+                else if (type == "EternalGoal")
+                {
+                    goal = new EternalGoal(name, description, points);
+                }
+
+                else if (type == "ChecklistGoal")
+                {
+                    if (parts.Length < 7)
+                    {
+                        Console.WriteLine("Invalid Checklist data. Skipping");
+                        continue;
+                    }
+
+                    int target = int.Parse(parts[4].Trim());
+                    int bonus = int.Parse(parts[5].Trim());
+                    int amountCompleted = int.Parse(parts[6].Trim());
+
+                    goal = new ChecklistGoal(name, description, points, target, bonus);
+                    ((ChecklistGoal)goal)._amountComplete = amountCompleted;
+                }
+
+                    if (goal != null)
+                        _goals.Add(goal);
+            }
+
 */
