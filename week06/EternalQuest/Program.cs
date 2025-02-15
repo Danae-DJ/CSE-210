@@ -20,7 +20,8 @@ class Program
             Console.WriteLine("3. Record an Event");
             Console.WriteLine("4. Save Goals");
             Console.WriteLine("5. Load Goals");
-            Console.WriteLine("6. Exit");
+            Console.WriteLine("6. Delete Goal");//Extra (its a Joke)
+            Console.WriteLine("7. Exit");
             Console.Write("Choose an option (1-6): ");
 
             string choice = Console.ReadLine();
@@ -47,7 +48,13 @@ class Program
                     goalManager.LoadGoals("goals.txt");
                     break;
 
-                case "6": //farewell with a metaphor: Extra
+                case "6"://Extra: Joke
+                    Console.WriteLine("Don't think I'll let you eliminate your goals!");
+                    Console.WriteLine("A goal achieved is a trophy for life that no one will take away from you.");
+                    Console.WriteLine("Return to the menu and meet the goal of the day!");
+                    break;
+
+                case "7": //farewell with a metaphor: Extra
                     Console.WriteLine($"Remember that: {phrases.GetRamdomMetaphor()}");
                     Console.WriteLine("Goodbye Champion!");
                     return;

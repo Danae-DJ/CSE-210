@@ -20,6 +20,7 @@ public class GoalManager
 
     public void CreateGoal() //1
     {//menu
+        Console.WriteLine("\n*************************************************");
         Console.WriteLine("What type of goal would you like to create?");
         Console.WriteLine("1. Simple Goal");
         Console.WriteLine("2. Eternal Goal");
